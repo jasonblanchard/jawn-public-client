@@ -1,0 +1,24 @@
+
+{
+  "name": "react-hooks-template",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": [{
+    "module": "commonjs"
+  }],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": [
+    "reason-react",
+    "@jasonblanchard/bs-react-final-form-hooks",
+    "@gladimdim/bs-semver",
+    "bs-fetch",
+    "bs-webapi"
+  ],
+  "refmt": 3
+}

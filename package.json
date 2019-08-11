@@ -1,0 +1,25 @@
+{
+  "name": "jawn-public-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "watch": "nodemon src/app.js",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^3.3.1"
+  }
+}
