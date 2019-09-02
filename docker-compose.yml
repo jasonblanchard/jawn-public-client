@@ -1,6 +1,6 @@
 version: "3.7"
-services: 
-  app: 
+services:
+  app:
     build: .
     image: jasonblanchard/jawn-public-client
     command:
@@ -36,6 +36,7 @@ services:
         tail -f /dev/null
     environment:
       CYPRESS_BASE_URL: "http://app:8080"
+    container_name: jawn-public-client-test
     networks:
       - default
 networks:

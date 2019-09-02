@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind:  Mapping
+      name:  auth_client_mapping
+      prefix: /auth/
+      service: {{ .Values.name }}:{{ .Values.port }}
+      bypass_auth: true
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.port }}
+    name: http
+  selector:
+    app: {{ .Values.name }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        version: '{{ .Values.version }}'
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.image }}:{{ .Values.version }}
+        env:
+          - name: 'PORT'
+            value: '{{ .Values.port }}'
+          - name: 'HOMEPAGE_PATH'
+            value: '/workspace/'
+          - name: 'AUTH_API_PATH'
+            value: '/auth/api/login'
+          - name: 'BASE_PATH'
+            value: '/auth'
+        ports:
+        - containerPort: {{ .Values.port }}
+        readinessProbe:
+          httpGet:
+             path: /health
+             port: {{ .Values.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
