@@ -2,4 +2,4 @@
 
 source $(dirname $0)/config
 TAG="$(git rev-parse HEAD)"
-helm upgrade --set version=${TAG} ${RELEASE} ./deploy
+helm template --set version=${TAG} ./deploy | kubectl apply -f -
