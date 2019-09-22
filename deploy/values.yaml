@@ -1,4 +1,4 @@
-relicats: 1
+relicas: 1
 name: public-client
 image: jasonblanchard/jawn-public-client
 port: 8080
